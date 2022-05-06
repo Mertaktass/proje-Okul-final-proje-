@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="otomasyon" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=otomasyon;Integrated Security=True" SettingsObjectName="proje.Properties.Settings" SettingsPropertyName="otomasyonConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.firmalar" Member="firmalars">
+    <Type Name="firmalar">
+      <Column Name="firmaid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="firma_adi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="adres" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="telefon" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ürün_serino" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ürünler_firmalar" Member="ürünler" ThisKey="ürün_serino" OtherKey="ürün_serino" Type="ürünler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.kullanıcı" Member="kullanıcıs">
+    <Type Name="kullanıcı">
+      <Column Name="kullanıcıid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="kullanıcı_adi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="kullanıcı_sifre" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="telefon" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="mail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="kullanıcı_isim" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="kullanıcı_soyisim" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="kullanıcı_ürünler" Member="ürünlers" ThisKey="kullanıcıid" OtherKey="ürünid" Type="ürünler" />
+    </Type>
+  </Table>
+  <Table Name="dbo.personel" Member="personels">
+    <Type Name="personel">
+      <Column Name="personelid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="personel_adi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="personel_sifre" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="personel_no" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="telefon" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Association Name="personel_ürünler" Member="ürünlers" ThisKey="personel_no" OtherKey="personel_no" Type="ürünler" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Siparis" Member="Siparis">
+    <Type Name="Sipari">
+      <Column Name="siparisid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="siparis_no" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="siparis_durumu" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ürün_serino" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ürünler_Sipari" Member="ürünler" ThisKey="ürün_serino" OtherKey="ürün_serino" Type="ürünler" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ürünler" Member="ürünlers">
+    <Type Name="ürünler">
+      <Column Name="ürünid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ürün_adi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ürün_modeli" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ürün_serino" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ürün_adedi" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ürün_tarihi" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="fiyat" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="personel_no" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ürünler_firmalar" Member="firmalars" ThisKey="ürün_serino" OtherKey="ürün_serino" Type="firmalar" />
+      <Association Name="ürünler_Sipari" Member="Siparis" ThisKey="ürün_serino" OtherKey="ürün_serino" Type="Sipari" />
+      <Association Name="kullanıcı_ürünler" Member="kullanıcı" ThisKey="ürünid" OtherKey="kullanıcıid" Type="kullanıcı" IsForeignKey="true" />
+      <Association Name="personel_ürünler" Member="personel" ThisKey="personel_no" OtherKey="personel_no" Type="personel" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
